@@ -1,3 +1,6 @@
+"""
+HS{SQL_1NJECT10N_4LW4YS_C4N_D0_1T}
+"""
 import pwnbox,struct
 pack =lambda x: struct.pack("<I",x)
 unpack = lambda x : struct.unpack("<I",x)[0]
